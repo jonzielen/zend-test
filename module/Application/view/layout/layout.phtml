@@ -1,0 +1,50 @@
+<?php echo $this->doctype(); ?>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+  <?php echo $this->headTitle(''.$this->translate('The Best Site Ever!'))->setSeparator(' | ')->setAutoEscape(false) ?>
+
+  <?php echo $this->headMeta()
+      ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+      ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+  ?>
+
+  <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                  ->prependStylesheet($this->basePath() . '/css/main.css') ?>
+
+  <?php echo $this->headScript()
+      ->prependFile($this->basePath() . '/js/vendor/modernizr-2.6.2.min.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+  ; ?>
+</head>
+<body class="body specific class goes here">
+  <!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+  <div class="page-wrapper">
+    <nav>
+      <ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/blog">blog</a></li>
+      </ul>
+    </nav>
+    <?php echo $this->content; ?>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+  <?php echo $this->inlineScript()
+      ->prependFile($this->basePath() . 'js/main.js')
+      ->prependFile($this->basePath() . '/js/plugins.js') ?>
+
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+  </script>
+</body>
+</html>
