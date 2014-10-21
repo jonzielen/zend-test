@@ -1,9 +1,9 @@
 <?php
-  $this->headTitle(strip_tags($post->post_title));
+  $this->headTitle($this->escapeHtml($post->post_title));
   if ($post->tags) {
-    $this->headMeta()->appendName('keywords', $post->keywords);
+    $this->headMeta()->appendName('keywords', $this->escapeHtml($post->keywords));
   }
-  $this->headMeta()->appendName('description', $post->post_metaDescription);
+  $this->headMeta()->appendName('description', $this->escapeHtml($post->post_metaDescription));
 ?>
 <div class="blog-post">
   <h1><?php echo $post->post_title; ?></h1>

@@ -10,9 +10,21 @@ class BlogController extends AbstractActionController
 
     public function indexAction()
     {
+      // grab the paginator from the BlogTable
+      $paginator = $this->getBlogTable()->fetchAll(true);
+      // set the current page to what has been passed in query string, or to 1 if none set
+      $paginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+      // set the number of items per page to 5
+      $paginator->setItemCountPerPage(5);
+
       return new ViewModel(array(
-          'blogposts' => $this->getBlogTable()->fetchAll(),
+          'paginator' => $paginator
       ));
+
+
+      /*return new ViewModel(array(
+          'blogposts' => $this->getBlogTable()->fetchAll(),
+      ));*/
     }
 
     public function postAction()
