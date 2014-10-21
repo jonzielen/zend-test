@@ -20,11 +20,6 @@ class BlogController extends AbstractActionController
       return new ViewModel(array(
           'paginator' => $paginator
       ));
-
-
-      /*return new ViewModel(array(
-          'blogposts' => $this->getBlogTable()->fetchAll(),
-      ));*/
     }
 
     public function postAction()

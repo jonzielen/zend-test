@@ -29,7 +29,7 @@ class BlogTable
             // create a new pagination adapter object
             $paginatorAdapter = new DbSelect(
                 // our configured select object
-                $select,
+                $select->order(array('id DESC')),
                 // the adapter to run it against
                 $this->tableGateway->getAdapter(),
                 // the result set to hydrate

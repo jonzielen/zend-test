@@ -21,13 +21,8 @@
 </head>
 <body class="body specific class goes here">
   <!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
-  <div class="page-wrapper">
-    <nav>
-      <ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/blog">blog</a></li>
-      </ul>
-    </nav>
+  <div class="page-wrapper clearfix">
+    <?php echo $this->partial('partial/nav.phtml'); ?>
     <?php echo $this->content; ?>
   </div>
 
