@@ -25,7 +25,7 @@ class BlogTable
 
     public function tagSearch($url_param_tag)
     {
-      $rowset = $this->tableGateway->select(function (Select $select) use ($url_param_tag) {
+      $rowset = $this->tableGateway->select(function(Select $select) use ($url_param_tag) {
            $select->where->like('tags', "%{$url_param_tag}%");
       });
 

@@ -23,7 +23,7 @@ class BlogPostFormat
   // add url for tags
   public function keyWordTags($tags) {
     if (!empty($tags)) {
-      $tagsLinks = 'Tags: ';
+      $tagsLinks = '';
       $tagArray = str_replace(' ', '', explode(',', $tags));
 
       foreach ($tagArray as $key => $value) {
