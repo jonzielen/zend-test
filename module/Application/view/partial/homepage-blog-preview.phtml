@@ -1,6 +1,13 @@
 <div class="blog-preview">
-  <h2>New from the Blog:</h2>
-  <div>
-
+  <div class="blog-post">
+    <h3><a href="<?php echo $this->url('blog/post', array('slug' => $this->page_url)); ?>"><?php echo $this->post_title; ?></a></h3>
+    <h4><?php echo gmdate('n/j/Y - g:ia', $this->unix_time); ?></h4>
+    <div class="blog-post-body">
+      <?php
+        $shortDescription = new Blog\Model\BlogPostFormat();
+        echo $shortDescription->homepageDescriptionFromBody($this->post_body);
+      ?>
+      <p class="read-more"><a href="<?php echo $this->url('blog/post', array('slug' => $this->page_url)); ?>">Read More &gt;</a></p>
+    </div>
   </div>
 </div>

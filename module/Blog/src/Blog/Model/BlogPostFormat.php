@@ -33,4 +33,21 @@ class BlogPostFormat
       return $tagsLinks;
     }
   }
+
+  // homepage short description
+  public function homepageDescriptionFromBody($postBody) {
+    $cleanString = strip_tags($postBody, '<p><i><em><strong><bold>');
+
+    if (strlen($cleanString) <= 320) {
+      $metaDesc = $cleanString;
+    } else {
+      $cleanString = substr($cleanString, 0, 320);
+      $metaDesc = preg_replace('/\n/', '', substr($cleanString, 0, strrpos($cleanString, ' ')));
+      if (!preg_match('/[:;,0-9!\.\?]/', substr($metaDesc, -1))) {
+        $metaDesc = $metaDesc.'...';
+      }
+    }
+
+    return $metaDesc;
+  }
 }

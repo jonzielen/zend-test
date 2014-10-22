@@ -1,9 +1,14 @@
-<h1>Hello!</h1>
-<h2>Homepage</h2>
-<div>
-  <section>
-    <?php echo $this->partial('partial/homepage-blog-preview.phtml'); ?>
-  </section>
-  <?php echo $this->partial('partial/sidebar.phtml'); ?>
+<div id="homepage" class="clearfix">
+  <h1>Hello!</h1>
+  <h2>Homepage</h2>
+  <div>
+    <section class="homepage-main-left">
+      <h3>New from the Blog:</h3>
+      <?php echo $this->partialLoop('partial/homepage-blog-preview.phtml', $this->paginator); ?>
+    </section>
+    <aside class="test-sidebar">
+      <?php echo $this->partial('partial/sidebar.phtml'); ?>
+      <?php echo $this->partial('partial/sidebar-email-signup.phtml');  ?>
+    </aside>
+  </div>
 </div>
-

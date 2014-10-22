@@ -14,8 +14,31 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+    private $blogTable;
+
     public function indexAction()
     {
-        return new ViewModel();
+
+      $paginator = $this->getBlogTable()->homepagesFetch();
+
+      return new ViewModel(array(
+          'paginator' => $paginator
+      ));
+    }
+
+    public function testAction() {
+
+      return new ViewModel(array(
+          'hello' => 'hello'
+      ));
+    }
+
+    public function getBlogTable()
+    {
+        if (!$this->blogTable) {
+            $sm = $this->getServiceLocator();
+            $this->blogTable = $sm->get('Blog\Model\BlogTable');
+        }
+        return $this->blogTable;
     }
 }

@@ -45,6 +45,15 @@ class BlogTable
         return $resultSet;
     }
 
+    public function homepagesFetch()
+    {
+        $resultSet = $this->tableGateway->select(function(Select $select) {
+          $select->order(array('id DESC'));
+          $select->limit(4);
+        });
+        return $resultSet;
+    }
+
     public function tagSearch($url_param_tag)
     {
       $rowset = $this->tableGateway->select(function(Select $select) use ($url_param_tag) {

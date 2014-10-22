@@ -19,12 +19,13 @@
       ->prependFile($this->basePath() . '/js/vendor/modernizr-2.6.2.min.js',   'text/javascript', array('conditional' => 'lt IE 9',))
   ; ?>
 </head>
-<body class="body specific class goes here">
+<body>
   <!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
   <div class="page-wrapper clearfix">
     <?php echo $this->partial('partial/nav.phtml'); ?>
     <?php echo $this->content; ?>
   </div>
+  <?php echo $this->partial('partial/footer.phtml'); ?>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
