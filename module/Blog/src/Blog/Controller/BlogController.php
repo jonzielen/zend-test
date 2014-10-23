@@ -55,10 +55,6 @@ class BlogController extends AbstractActionController
         $form->setInputFilter($blog->getInputFilter());
         $form->setData($request->getPost());
 
-        echo '<pre>';
-        print_r($request->getPost());
-        echo '</pre>';
-
         if ($form->isValid()) {
           $blog->exchangeArray($form->getData());
           $this->getBlogTable()->saveBlog($blog);
