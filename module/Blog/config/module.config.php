@@ -43,9 +43,18 @@ return array(
                             )
                         )
                     ),
+                    'add' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/add',
+                            'defaults' => array(
+                                'controller' => 'Blog\Controller\Blog',
+                                'action' => 'add',
+                            )
+                        )
+                    ),
                 ),
             ),
-
         ),
     ),
     'view_manager' => array(

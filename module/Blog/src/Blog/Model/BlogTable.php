@@ -22,7 +22,7 @@ class BlogTable
     {
         if($paginated) {
             // create a new Select object for the table blog_1
-            $select = new Select('blog_1');
+            $select = new Select('zend_blog_1');
             // create a new result set based on the Blog entity
             $resultSetPrototype = new ResultSet();
             $resultSetPrototype->setArrayObjectPrototype(new Blog());
@@ -100,6 +100,8 @@ class BlogTable
             'post_body'     => $blog->post_body,
             'page_url'      => $blog->page_url,
             'tags'          => $blog->tags,
+            'active'        => $blog->active,
+            'unix_time'     => time()-14400, // subtract 4 hours, fix timestamp
         );
 
         $id = (int)$blog->id;

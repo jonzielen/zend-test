@@ -1,0 +1,21 @@
+<?php
+  $title = 'Add new blog post';
+  $this->headTitle($title);
+?>
+<div id="blog-form-wrapper">
+  <h1><?php echo $this->escapeHtml($title); ?></h1>
+  <?php
+  $form->setAttribute('action', $this->url('blog/add', array('action' => 'add')));
+  $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('id'));
+    echo $this->formRow($form->get('post_title'));
+    echo $this->formRow($form->get('page_url'));
+    echo $this->formRow($form->get('tags'));
+    echo $this->formRow($form->get('post_body'));
+    echo $this->formRow($form->get('active'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
+  ?>
+</div>

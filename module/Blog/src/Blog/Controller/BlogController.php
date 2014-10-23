@@ -3,6 +3,8 @@ namespace Blog\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Blog\Model\Blog;
+use Blog\Form\BlogForm;
 
 class BlogController extends AbstractActionController
 {
@@ -44,6 +46,31 @@ class BlogController extends AbstractActionController
 
     public function addAction()
     {
+      $form = new BlogForm();
+      $form->get('submit')->setValue('Go');
+
+      $request = $this->getRequest();
+      if ($request->isPost()) {
+        $blog = new Blog();
+        $form->setInputFilter($blog->getInputFilter());
+        $form->setData($request->getPost());
+
+        echo '<pre>';
+        print_r($request->getPost());
+        echo '</pre>';
+
+        if ($form->isValid()) {
+          $blog->exchangeArray($form->getData());
+          $this->getBlogTable()->saveBlog($blog);
+
+          // Redirect to list of blog posts
+          return $this->redirect()->toRoute('blog');
+        }
+      }
+
+      return new ViewModel(array(
+        'form' => $form,
+      ));
     }
 
     public function editAction()
