@@ -39,7 +39,21 @@ return array(
                                 'slug' => '[a-zA-Z0-9_-]+',
                             ),
                             'defaults' => array(
+                                'controller' => 'Blog\Controller\Blog',
                                 'action' => 'post',
+                            )
+                        ),
+                    ),
+                    'edit' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/[:slug]/edit',
+                            'constraints' => array(
+                                'slug' => '[a-zA-Z0-9_-]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Blog\Controller\Blog',
+                                'action' => 'edit',
                             )
                         )
                     ),

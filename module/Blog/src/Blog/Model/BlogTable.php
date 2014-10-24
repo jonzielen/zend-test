@@ -71,26 +71,38 @@ class BlogTable
       $rowset = $this->tableGateway->select(array('page_url' => $page_url));
       $row = $rowset->current();
 
-      // meta description
-      if ($row->post_body) {
-        $row->post_metaDescription = $this->bpf->metaDescriptionFromBody($row->post_body);
-      }
-
-      // format blog date
-      if ($row->unix_time) {
-        $row->date = gmdate('n/j/Y - g:ia', $row->unix_time);
-      }
-
-      // keyword tags
-      if ($row->tags) {
-        $row->keywords = $row->tags;
-        $row->tags = $this->bpf->keyWordTags($row->tags);
-      }
-
       if (!$row) {
-          throw new \Exception("Could not find row $page_url");
+          //throw new \Exception("Could not find row $page_url");
+          $row = new \Blog\Model\Blog;
+          $rowVars = get_object_vars($row);
+
+          foreach($rowVars as $rowKey => $rowVals) {
+            $row->$rowKey = '';
+          }
+
+          $row->post_title = 'A 404 error occurred';
+          $row->post_body = '<h2>Page not found.</h2>';
+
+          return $row;
+      } else {
+        // meta description
+        if ($row->post_body) {
+          $row->post_metaDescription = $this->bpf->metaDescriptionFromBody($row->post_body);
+        }
+
+        // format blog date
+        if ($row->unix_time) {
+          $row->date = gmdate('n/j/Y - g:ia', $row->unix_time);
+        }
+
+        // keyword tags
+        if ($row->tags) {
+          $row->keywords = $row->tags;
+          $row->tagsLinks = $this->bpf->keyWordTags($row->tags);
+        }
+
+        return $row;
       }
-      return $row;
     }
 
     public function saveBlog(Blog $blog)

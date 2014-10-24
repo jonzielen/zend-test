@@ -27,6 +27,11 @@ class Blog implements InputFilterAwareInterface
         $this->active     = (isset($data['active'])) ? $data['active'] : null;
     }
 
+    public function getArrayCopy()
+    {
+      return get_object_vars($this);
+    }
+
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
        throw new \Exception("Not used");

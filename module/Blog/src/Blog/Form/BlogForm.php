@@ -9,7 +9,6 @@ class BlogForm extends Form
    {
        // we want to ignore the name passed
        parent::__construct('blog');
-       //parent::__construct('blog-form');
 
        $this->add(array(
            'name' => 'id',
@@ -56,7 +55,6 @@ class BlogForm extends Form
                'value' => 1,
            ),
        ));
-
 
        $this->add(array(
            'name' => 'submit',

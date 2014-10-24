@@ -3,13 +3,13 @@
   if ($post->tags) {
     $this->headMeta()->appendName('keywords', $this->escapeHtml($post->keywords));
   }
-  $this->headMeta()->appendName('description', $this->escapeHtml($post->post_metaDescription));
+  $this->headMeta()->appendName('description', $this->escapeHtml((isset($post->post_metaDescription) ? $post->post_metaDescription : '')));
 ?>
 <div class="blog-post">
   <h1><?php echo $post->post_title; ?></h1>
-  <h3><?php echo $post->date; ?></h3>
-  <?php if ($post->tags): ?>
-    <div class="tag-list">Tags: <?php echo $post->tags; ?></div>
+  <h3><?php echo (isset($post->date) ? $post->date : ''); ?></h3>
+  <?php if ($post->tagsLinks): ?>
+    <div class="tag-list">Tags: <?php echo $post->tagsLinks; ?></div>
   <?php endif ?>
   <div class="blog-post-body">
     <?php echo $post->post_body; ?>

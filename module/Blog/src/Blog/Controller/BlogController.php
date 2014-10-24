@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Blog\Model\Blog;
 use Blog\Form\BlogForm;
+use Zend\Http\Response;
 
 class BlogController extends AbstractActionController
 {
@@ -71,6 +72,38 @@ class BlogController extends AbstractActionController
 
     public function editAction()
     {
+
+      $slug = $this->params()->fromRoute('slug');
+
+      $blog = $this->getBlogTable()->getBlog($slug);
+
+      // send to 404 error
+      if ($blog->page_url == '' || $blog->page_url == '') {
+        $this->getResponse()->setStatusCode(404);
+        return;
+      }
+
+      $form  = new BlogForm();
+      $form->bind($blog);
+      $form->get('submit')->setAttribute('value', 'Save');
+
+      $request = $this->getRequest();
+      if ($request->isPost()) {
+          $form->setInputFilter($blog->getInputFilter());
+          $form->setData($request->getPost());
+
+          if ($form->isValid()) {
+              $this->getBlogTable()->saveBlog($form->getData());
+
+              // Redirect to blog
+              return $this->redirect()->toRoute('blog');
+          }
+      }
+
+      return array(
+          'slug' => $slug,
+          'form' => $form,
+      );
     }
 
     public function deleteAction()
