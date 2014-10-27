@@ -5,8 +5,8 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Login\Model\Login;
 use Login\Model\LoginTable;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Adapter\Adapter as DbAdapter;
+use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
@@ -33,16 +33,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     {
         return array(
             'factories' => array(
-                'Login\Model\LoginTable' =>  function($sm) {
-                    $tableGateway = $sm->get('LoginTableGateway');
-                    $table = new LoginTable($tableGateway);
-                    return $table;
-                },
-                'LoginTableGateway' => function ($sm) {
+                'CredentialsGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Login());
-                    return new TableGateway('zend_login', $dbAdapter, null, $resultSetPrototype);
+                    $authAdapter = new AuthAdapter($dbAdapter);
+                    return $authAdapter;
                 },
             ),
         );

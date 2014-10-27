@@ -5,10 +5,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Login\Model\Login;
 use Login\Form\LoginForm;
+use Zend\Authentication\Result;
 
 class LoginController extends AbstractActionController
 {
     protected $loginTable;
+    protected $loginCred;
 
     public function loginAction()
     {
@@ -23,14 +25,7 @@ class LoginController extends AbstractActionController
 
         if ($form->isValid()) {
           $login->exchangeArray($form->getData());
-          $LoggedIn = $this->getLoginTable()->loginSearch($login);
-
-          if ($LoggedIn) {
-            echo 'login';
-            //return $this->redirect()->toRoute('home');
-          } else {
-            echo 'nope';
-          }
+          $this->testCredential($login);
         }
       }
 
@@ -43,12 +38,35 @@ class LoginController extends AbstractActionController
     {
     }
 
-    public function getLoginTable()
+    public function testCredential($login)
     {
-        if (!$this->loginTable) {
+        if (!$this->loginCred) {
             $sm = $this->getServiceLocator();
-            $this->loginTable = $sm->get('Login\Model\LoginTable');
+            $this->loginCred = $sm->get('CredentialsGateway');
+            $this->loginCred->setTableName('zend_login')->setIdentityColumn('username')->setCredentialColumn('password');
+            $this->loginCred->setIdentity($login->username)->setCredential($login->password);
+            $result = $this->loginCred->authenticate();
+
+            switch ($result->getCode()) {
+              case Result::FAILURE_IDENTITY_NOT_FOUND:
+              echo "FAILURE_IDENTITY_NOT_FOUND";
+              break;
+
+              case Result::FAILURE_CREDENTIAL_INVALID:
+              /** do stuff for invalid credential **/
+              echo "FAILURE_CREDENTIAL_INVALID";
+              break;
+
+              case Result::SUCCESS:
+              /** do stuff for successful authentication **/
+              echo "SUCCESS";
+              break;
+
+              default:
+              /** do stuff for other failure **/
+              echo "Default";
+              break;
+            }
         }
-        return $this->loginTable;
     }
 }
