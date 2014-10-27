@@ -1,0 +1,17 @@
+<?php
+  $title = 'Login';
+  $this->headTitle($this->escapeHtml($title));
+?>
+<div id="login-form-wrapper">
+  <h1><?php echo $this->escapeHtml($title); ?>:</h1>
+  <?php
+  $form->setAttribute('action', $this->url('login', array('action' => 'add')));
+  $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formRow($form->get('username'));
+    echo $this->formRow($form->get('password'));
+    echo $this->formSubmit($form->get('submit'));
+    echo $this->form()->closeTag();
+  ?>
+</div>

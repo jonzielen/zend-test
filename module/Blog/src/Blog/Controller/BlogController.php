@@ -72,9 +72,7 @@ class BlogController extends AbstractActionController
 
     public function editAction()
     {
-
       $slug = $this->params()->fromRoute('slug');
-
       $blog = $this->getBlogTable()->getBlog($slug);
 
       // send to 404 error

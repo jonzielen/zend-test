@@ -33,6 +33,20 @@ class IndexController extends AbstractActionController
       ));
     }
 
+    public function loginAction() {
+
+      return new ViewModel(array(
+          'hello' => 'hello'
+      ));
+    }
+
+    public function adminAction() {
+
+      return new ViewModel(array(
+          'hello' => 'hello'
+      ));
+    }
+
     public function getBlogTable()
     {
         if (!$this->blogTable) {
