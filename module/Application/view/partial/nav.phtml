@@ -3,5 +3,8 @@
     <li><a href="/">home</a></li>
     <li><a href="/blog">blog</a></li>
     <li><a href="/test">test</a></li>
+    <?php if ((isset($_SESSION['user']->role) && $_SESSION['user']->role == 'admin') && $_SESSION['user']->loggedin == true): ?>
+    <li><a href="/logout">logout</a></li>
+    <?php endif ?>
   </ul>
 </nav>

@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use Login\Model\Login;
 use Login\Form\LoginForm;
 use Zend\Authentication\Result;
-
 use Zend\Session\Container;
 
 class LoginController extends AbstractActionController
@@ -50,6 +49,10 @@ class LoginController extends AbstractActionController
             $this->loginCred->setIdentity($login->username)->setCredential($login->password);
             $result = $this->loginCred->authenticate();
 
+            $columnsToReturn = array('id', 'username', 'role');
+
+            $userInfo = $this->loginCred->getResultRowObject($columnsToReturn);
+
             switch ($result->getCode()) {
               case Result::FAILURE_IDENTITY_NOT_FOUND:
               echo "FAILURE_IDENTITY_NOT_FOUND";
@@ -62,7 +65,7 @@ class LoginController extends AbstractActionController
 
               case Result::SUCCESS:
               /** do stuff for successful authentication **/
-              $this->userloginAction($login->username);
+              $this->userloginAction($userInfo);
               break;
 
               default:
@@ -73,10 +76,11 @@ class LoginController extends AbstractActionController
         }
     }
 
-    private function userloginAction($loginUsername)
+    private function userloginAction($userInfo)
     {
       $user_session = new Container('user');
-      $user_session->username = $loginUsername;
+      $user_session->username = $userInfo->username;
+      $user_session->role = $userInfo->role;
       $user_session->loggedin = true;
     }
 }

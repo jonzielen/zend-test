@@ -2,7 +2,7 @@
   $title = 'Login';
   $this->headTitle($this->escapeHtml($title));
 ?>
-<?php if ($_SESSION['user']->loggedin): ?>
+<?php if (isset($_SESSION['user']->loggedin)): ?>
 <h1>Welcome <?php echo $_SESSION['user']->username; ?>, you are logged in.</h1>
 <h2>You will now be redirected to the homepage.</h2>
 <?php $this->headMeta()->appendHttpEquiv('Refresh', '2;URL='.$this->serverUrl().'/'); ?>
@@ -12,7 +12,6 @@
   <?php
   $form->setAttribute('action', $this->url('login', array('action' => 'add')));
   $form->prepare();
-
     echo $this->form()->openTag($form);
     echo $this->formRow($form->get('username'));
     echo $this->formRow($form->get('password'));
