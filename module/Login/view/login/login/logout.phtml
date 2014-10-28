@@ -1,4 +1,6 @@
 <?php
   $this->headTitle('Logout');
-  echo $test;
+  $this->headMeta()->appendHttpEquiv('Refresh', '2;URL='.$this->serverUrl().'/');
 ?>
+<h1>You are now logged out.</h1>
+<h2>You will now be redirected to the homepage.</h2>

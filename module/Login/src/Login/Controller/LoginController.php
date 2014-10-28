@@ -7,6 +7,8 @@ use Login\Model\Login;
 use Login\Form\LoginForm;
 use Zend\Authentication\Result;
 
+use Zend\Session\Container;
+
 class LoginController extends AbstractActionController
 {
     protected $loginTable;
@@ -36,6 +38,7 @@ class LoginController extends AbstractActionController
 
     public function logoutAction()
     {
+      unset($_SESSION['user']);
     }
 
     public function testCredential($login)
@@ -59,7 +62,7 @@ class LoginController extends AbstractActionController
 
               case Result::SUCCESS:
               /** do stuff for successful authentication **/
-              echo "SUCCESS";
+              $this->userloginAction($login->username);
               break;
 
               default:
@@ -68,5 +71,12 @@ class LoginController extends AbstractActionController
               break;
             }
         }
+    }
+
+    private function userloginAction($loginUsername)
+    {
+      $user_session = new Container('user');
+      $user_session->username = $loginUsername;
+      $user_session->loggedin = true;
     }
 }

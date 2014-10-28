@@ -33,11 +33,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     {
         return array(
             'factories' => array(
-<<<<<<< HEAD
                 'CredentialsGateway' => function ($sm) {
-=======
-                'CredentialGateway' => function ($sm) {
->>>>>>> a0be7d054cda0e440891870250a176d36989db46
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $authAdapter = new AuthAdapter($dbAdapter);
                     return $authAdapter;
